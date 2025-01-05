@@ -13,11 +13,9 @@ scipy
 apache-airflow
 Jinja2
 streamlit
-requests 
-beautifulsoup4 
-python-whois 
+requests
+beautifulsoup4
+python-whois
 apache-airflow-providers-mongo
 pymongo
 python-multipart
-
-#-e .
