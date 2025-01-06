@@ -19,6 +19,6 @@ python-whois
 apache-airflow-providers-mongo
 pymongo
 python-multipart
-pymongo[srv]"==3.6
+pymongo[srv]==3.6
 
 #-e .
