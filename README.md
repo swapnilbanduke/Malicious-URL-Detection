@@ -178,7 +178,7 @@ FastAPI handles the model's operational tasks, including triggering model traini
 - MongoDB integration for data retrieval
 - Exported the processed data to a feature store for further usage.
 - Split the data into training and testing datasets, ensuring no data leakage.
-![MongoDB Data](_assets/Mango DB)
+![MongoDB Data](_assets/MangoDB.png)
 
 2. **Data Validation**:
    - Validated the schema to ensure all required columns are present.
