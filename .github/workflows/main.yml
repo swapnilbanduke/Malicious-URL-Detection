@@ -74,6 +74,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        # Checking out the repository to ensure we have the latest code
+        run: echo "Checked out code"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -81,20 +83,44 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+        # Outputting the region and confirming the credentials setup
+        run: |
+          echo "AWS Credentials configured for region: ${{ secrets.AWS_REGION }}"
+          aws sts get-caller-identity # Verify the IAM role/user used
 
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        # Adding debug info to verify login success
+        run: |
+          echo "Logging into Amazon ECR..."
+          aws ecr describe-repositories --region ${{ secrets.AWS_REGION }}  # Debugging if repo is accessible
+          docker info  # Output docker info to verify login
 
       - name: Pull latest images
         run: |
+          echo "Pulling the latest Docker image from ECR..."
           docker pull ${{ secrets.AWS_ECR_LOGIN_URI }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+          # Debugging the output of the docker pull command
+          docker images  # List all local images to confirm successful pull
+
       - name: Run Docker Image
         run: |
-          docker run -d -p 80:8080 --name=networksecurity -e 'MONGO_DB_URL=${{ secrets.MONGO_DB_URL }}' -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e 'AWS_REGION=${{ secrets.AWS_REGION }}'  ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+          echo "Running Docker container with the pulled image..."
+          docker run -d -p 80:8080 --name=networksecurity \
+            -e 'MONGO_DB_URL=${{ secrets.MONGO_DB_URL }}' \
+            -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' \
+            -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' \
+            -e 'AWS_REGION=${{ secrets.AWS_REGION }}' \
+            ${{ secrets.AWS_ECR_LOGIN_URI }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+          # Debugging to ensure the container is running
+          docker ps  # List running containers to confirm container is started
+
       - name: Clean previous images and containers
         run: |
+          echo "Cleaning up old images and containers..."
           docker system prune -f
-          
-          
-            
+          # Debugging docker system prune
+          docker images  # List remaining images after prune
+          docker ps -a  # List all containers to confirm cleanup
+
