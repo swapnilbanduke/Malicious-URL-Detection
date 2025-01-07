@@ -39,7 +39,7 @@ with DAG(
         
     
     def sync_artifact_to_s3_bucket(**kwargs):
-        bucket_name = "networksecurity3"
+        bucket_name = "networksecurity-swapnil"
         os.system(f"aws s3 sync /app/Artifacts s3://{bucket_name}/artifact")
         os.system(f"aws s3 sync /app/final_model s3://{bucket_name}/final_model")
 

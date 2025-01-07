@@ -18,7 +18,7 @@ with DAG(
 
     
     def download_files(**kwargs):
-        bucket_name = "my-network-datasource-neeraj"
+        bucket_name = "networksecurity-swapnil"
         input_dir = "/app/input_files"
         #creating directory
         os.makedirs(input_dir,exist_ok=True)
