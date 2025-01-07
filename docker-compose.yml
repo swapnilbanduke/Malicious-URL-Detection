@@ -1,5 +1,6 @@
+version: '3'
 services:
- application:
+  application:
     build: .
     container_name: network_security
     ports:
@@ -10,3 +11,40 @@ services:
       - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
       - MONGO_DB_URL=${MONGO_DB_URL}
       - BUCKET_NAME=${BUCKET_NAME}
+    volumes:
+      - app_data:/app/data  # Define a volume to persist data
+    networks:
+      - backend_network  # Assign to custom network
+
+  mongo:
+    image: mongo
+    container_name: mongo_db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - mongo_data:/data/db  # Define a volume to persist MongoDB data
+    networks:
+      - backend_network  # Assign to custom network
+
+  webserver:
+    image: apache/airflow:2.4.1
+    container_name: airflow_webserver
+    environment:
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: ${AIRFLOW_SQL_ALCHEMY_CONN}
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    volumes:
+      - airflow_logs:/opt/airflow/logs  # Volume to persist logs
+    ports:
+      - "8080:8080"
+    networks:
+      - backend_network  # Assign to custom network
+
+networks:
+  backend_network:
+    driver: bridge  # Custom network for internal communication
+
+volumes:
+  app_data:  # Define volume for application data
+  mongo_data:  # Define volume for MongoDB data
+  airflow_logs:  # Define volume for Airflow logs
