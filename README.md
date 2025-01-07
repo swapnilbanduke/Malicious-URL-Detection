@@ -155,11 +155,8 @@ FastAPI handles the model's operational tasks, including triggering model traini
 - Training Execution:
 ![Training Execution](_assets/train_route_success.png)
 
-- AWS S3 bucket named 'networksecurity3' where the artifacts, model.pkl file and preprocessor.pkl file are stored.
-![](_assets/s3_buckets.png)
-![](_assets/training_bucket.png)
-![](_assets/artifacts.png)
-![](_assets/final_model.png)
+- AWS S3 bucket named 'networksecurity-swapnil' where the artifacts, model.pkl file and preprocessor.pkl file are stored.
+![](_assets/S3_bucket_s.png)
 
 - Batch Prediction Route:
 ![Batch Route](_assets/predict_route.png)
@@ -167,9 +164,9 @@ FastAPI handles the model's operational tasks, including triggering model traini
 - Batch Prediction Execution:
 ![Batch Execution](_assets/predict_route_success.png)
 
-- AWS S3 bucket named 'my-network-datasource-neeraj' where the CSV files uploaded by users to the POST /predict route are stored.
-![](_assets/s3_buckets.png)
-![](_assets/prediction_bucket.png)
+- AWS S3 bucket named 'networksecurity-swapnil' where the CSV files uploaded by users to the POST /predict route are stored.
+![](_assets/S3_bucket_s.png)
+
 
 
 ### 3. MLOps Pipeline
@@ -200,8 +197,8 @@ FastAPI handles the model's operational tasks, including triggering model traini
    - Evaluated metrics such as **Precision**, **Recall**, and **F1-score** for the model through multiple experiments, with results tracked using **MLflow**, which is hosted on **AWS**. 
     ![MLflow Experiments](_assets/mlflow_experiments.png)
     ![MLflow Artifacts](_assets/mlflow_artifacts.png)
-   - MLflow experiments, models, and other artifacts are stored in a bucket named "mlflowtrackingnetwork" in an S3 bucket.
-    ![](_assets/s3_buckets.png) 
+   - MLflow experiments, models, and other artifacts are stored in a bucket named "mlflowtrackingmlopsswapnil" in an S3 bucket.
+    ![](_assets/S3_bucket_s.png) 
 
 ### 4. CI/CD Pipeline with GitHub Actions
 
@@ -209,7 +206,7 @@ The project leverages a robust **CI/CD pipeline** to automate the integration, d
 
 - Using AWS EC2 instance as a Self-Hosted Runner for Github Actions
   ![EC2 Runner](_assets/self_hosted_runner_aws.png)
-  ![Runner Status](_assets/self_hosted_runner.png)
+  ![Runner Status](_assets/self_hosted_runner_s.png)
 
 - Pipeline Stages:
   - Continuous Integration:
@@ -219,8 +216,8 @@ The project leverages a robust **CI/CD pipeline** to automate the integration, d
   - Continuous Deployment:
     ![Deployment](_assets/continuous_deployment.png)
 
-- Successful Pipeline Execution:
-![CI/CD Complete](_assets/ci_cd_completed.png)
+- Successful Pipeline Execution
+
 
 ### 5. Docker Integration
 - ECR Image Management
@@ -229,12 +226,12 @@ The project leverages a robust **CI/CD pipeline** to automate the integration, d
 ### 6. Airflow Integration
 
 - Airflow Login:
-![Login](_assets/airflow_login.png)
+![Login](_assets/airflow_login_s.png)
 ![Dashboard](_assets/airflow_ui_home.png)
 
 - DAGs:
   - Batch Prediction DAG:
-    ![Prediction DAG](_assets/batch_prediction_dag.png)
+    ![Prediction DAG](_assets/batch_pred_dag_s.png)
   - Training Pipeline DAG:
     ![Training DAG](_assets/training_pipeline_dag.png)
 
@@ -242,7 +239,7 @@ The project leverages a robust **CI/CD pipeline** to automate the integration, d
 ![DAGs List](_assets/airflow_dags.png)
 
 - Training Pipeline DAG Execution:
-![DAG Running](_assets/training_pipeline_dag_airflow.png)
+![DAG Running](_assets/training_dag_s.png)
 
 - Batch Prediction DAG Execution:
 ![DAG Running](_assets/batch_prediction_dag_airflow.png)
@@ -259,7 +256,7 @@ This section provides a step-by-step guide on how to set up and run the Maliciou
 
 1. **Clone the Repository:**
    ```bash
-   https://github.com/Neeraj876/network-security-system-mlops.git
+   https://github.com/swapnilbanduke/Malicious-URL-Detection.git
    cd network-security-system-mlops
    ```
 2. **Install Dependencies:**
